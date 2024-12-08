@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Players</h2>
+<div class="stats">
+    {% for player in players %}
+    <div class="card">
+        <h3>{{ player["first_name"] }} {{ player["last_name"] }}</h3>
+        <p>Team: {{ player["team"]["full_name"] }}</p>
+        <p>Position: {{ player["position"] or "Unknown" }}</p>
+        <p>Weight: {{ player["weight"] or "N/A" }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

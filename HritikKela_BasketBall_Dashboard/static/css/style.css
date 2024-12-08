@@ -1,0 +1,97 @@
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ff4500;
+    padding: 10px 20px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .logo img {
+    height: 200px;
+    width: auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Footer Styling */
+footer {
+    margin-top: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Cards for Players and Teams */
+.card {
+    display: inline-block;
+    width: 300px;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+    color: #ff4500;
+}
+
+.card p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+/* Stats Page */
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.stats .stat-item {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ffebcd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stats .stat-item h2 {
+    margin-bottom: 10px;
+    color: #ff4500;
+}
+
+/* Links */
+a {
+    color: #ff4500;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Basketball Stats</h2>
+
+<!-- Stats Overview Section -->
+<div class="stats">
+    <div class="stat-item">
+        <h3>Average Home Score</h3>
+        <p>{{ avg_home_score }}</p>
+    </div>
+    <div class="stat-item">
+        <h3>Average Visitor Score</h3>
+        <p>{{ avg_visitor_score }}</p>
+    </div>
+    <div class="stat-item">
+        <h3>Average Player Weight</h3>
+        <p>{{ avg_weight }} lbs</p>
+    </div>
+</div>
+
+<!-- Player Positions Section -->
+<h3>Position Breakdown</h3>
+<ul>
+    {% for position, count in positions.items() %}
+        <li>{{ position }}: {{ count }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Teams List -->
+<h3>Teams</h3>
+<ul>
+    {% for team in teams %}
+        <li>{{ team["full_name"] }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Charts for Statistics -->
+<div class="charts">
+    <h3>Graphs</h3>
+
+    <!-- Chart for Average Scores -->
+    <h4>Average Home vs. Visitor Scores</h4>
+    <canvas id="scoreChart"></canvas>
+
+    <!-- Chart for Player Weight -->
+    <h4>Player Average Weight</h4>
+    <canvas id="weightChart"></canvas>
+
+    <!-- Chart for Player Positions -->
+    <h4>Players by Position</h4>
+    <canvas id="positionChart"></canvas>
+</div>
+
+<!-- Load Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const avgHomeScore = {{ avg_home_score }};
+        const avgVisitorScore = {{ avg_visitor_score }};
+        const avgWeight = {{ avg_weight }};
+        const positions = {{ positions | tojson }};
+        
+        // Chart for Average Scores
+        const scoreChartCtx = document.getElementById('scoreChart').getContext('2d');
+        new Chart(scoreChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Home Score', 'Visitor Score'],
+                datasets: [{
+                    label: 'Average Scores (2023 Season)',
+                    data: [avgHomeScore, avgVisitorScore],
+                    backgroundColor: ['#ff6f61', '#6fa3ff'],
+                    borderColor: ['#ff4500', '#4e8bff'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Doughnut Chart for Player Average Weight
+        const weightChartCtx = document.getElementById('weightChart').getContext('2d');
+        new Chart(weightChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Average Player Weight'],
+                datasets: [{
+                    data: [avgWeight],
+                    backgroundColor: ['#3e8bfc'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Pie Chart for Player Positions
+        const positionChartCtx = document.getElementById('positionChart').getContext('2d');
+        new Chart(positionChartCtx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(positions),
+                datasets: [{
+                    label: 'Players by Position',
+                    data: Object.values(positions),
+                    backgroundColor: ['#ff9f00', '#ff7043', '#ff5722', '#4caf50', '#2196f3', '#9c27b0', '#e91e63'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    });
+</script>
+{% endblock %}
